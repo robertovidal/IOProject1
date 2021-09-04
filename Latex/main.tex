@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+\input{head}
+\begin{document}
+
+%-------------------------------
+%	TITLE SECTION
+%-------------------------------
+
+\fancyhead[C]{}
+\hrule \medskip % Upper rule
+\begin{minipage}{0.295\textwidth} % Left side of title section
+\raggedright
+IO\\ % Your lecture or course
+\footnotesize % Authors text size
+\hfill\\
+Jose Pablo Fernández Cubillo, 2019047740 \\% Your name, your matriculation number
+Roberto Vidal Patiño, 2019065537% Your name, your matriculation number
+\end{minipage}
+\begin{minipage}{0.4\textwidth} % Center of title section
+\centering 
+\large % Title text size
+Proyecto 1\\ % Assignment title and number
+\normalsize % Subtitle text size
+Mochila Dinámica vs. MochilaGreedy\\ % Assignment subtitle
+\end{minipage}
+\begin{minipage}{0.295\textwidth} % Right side of title section
+\raggedleft
+\today\\ % Date
+\footnotesize % Email text size
+\hfill\\
+pablof5181@estudiantec.cr\\
+robertovidal@estudiantec.cr% Your email
+\end{minipage}
+\medskip\hrule % Lower rule
+\bigskip
+
+%-------------------------------
+%	CONTENTS
+%-------------------------------
+\section{Forma matemática}
+ \textbf{Maximizar:}
+
+$$Z=20x_{\text{A}}+7x_{\text{B}}+15x_{\text{C}}+20x_{\text{D}}+5x_{\text{E}}+3x_{\text{F}}$$\textbf{Sujeto a:}
+
+$$4x_{\text{A}}+3x_{\text{B}}+2x_{\text{C}}+2x_{\text{D}}+2x_{\text{E}}+6x_{\text{F}}\leq 15$$
+
+$$x_i = 0 \text{ o } 1$$\section{Programación dinámica}
+\textbf{Resultado:} 67
+
+\textbf{Tiempo:} 0.000015
+
+\textbf{Solución:} E-D-C-B-A
+
+\begin{table}[H]
+\centering
+\relax
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ & A & B & C & D & E & F \\
+\hline
+0 & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} \\
+\hline
+1 & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} \\
+\hline
+2 & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 15 \cellcolor{green!50} & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 20 \cellcolor{red!50} \\
+\hline
+3 & 0 \cellcolor{red!50} & 7 \cellcolor{green!50} & 15 \cellcolor{green!50} & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 20 \cellcolor{red!50} \\
+\hline
+4 & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 20 \cellcolor{red!50} & 35 \cellcolor{green!50} & 35 \cellcolor{red!50} & 35 \cellcolor{red!50} \\
+\hline
+5 & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 22 \cellcolor{green!50} & 35 \cellcolor{green!50} & 35 \cellcolor{red!50} & 35 \cellcolor{red!50} \\
+\hline
+6 & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 35 \cellcolor{green!50} & 40 \cellcolor{green!50} & 40 \cellcolor{red!50} & 40 \cellcolor{red!50} \\
+\hline
+7 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 35 \cellcolor{green!50} & 42 \cellcolor{green!50} & 42 \cellcolor{red!50} & 42 \cellcolor{red!50} \\
+\hline
+8 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 35 \cellcolor{green!50} & 55 \cellcolor{green!50} & 55 \cellcolor{red!50} & 55 \cellcolor{red!50} \\
+\hline
+9 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 55 \cellcolor{green!50} & 55 \cellcolor{red!50} & 55 \cellcolor{red!50} \\
+\hline
+10 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 55 \cellcolor{green!50} & 60 \cellcolor{green!50} & 60 \cellcolor{red!50} \\
+\hline
+11 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 62 \cellcolor{red!50} & 62 \cellcolor{red!50} \\
+\hline
+12 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 62 \cellcolor{red!50} & 62 \cellcolor{red!50} \\
+\hline
+13 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 67 \cellcolor{green!50} & 67 \cellcolor{red!50} \\
+\hline
+14 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 67 \cellcolor{green!50} & 67 \cellcolor{red!50} \\
+\hline
+15 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 67 \cellcolor{green!50} & 67 \cellcolor{red!50} \\
+\hline
+\end{tabular}
+\caption{Tabla usando programación dinámica.}
+\end{table}
+\section{Greedy básico}
+\textbf{Resultado:} 67
+
+\textbf{Tiempo:} 0.000009
+
+\textbf{Solución:} A-D-C-B-E\section{Greedy proporcional}
+\textbf{Resultado:} 67
+
+\textbf{Tiempo:} 0.00001
+
+\textbf{Solución:} D-C-A-E-B\end{document}

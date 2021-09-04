@@ -2,6 +2,186 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
+
+FILE *archivo;
+
+void terminaPdf(){
+    fputs("\\end{document}", archivo);
+    fclose(archivo);
+    system("cd Latex && pdflatex main.tex && mv ./main.pdf ../resultado.pdf && cd .. && evince resultado.pdf");
+}
+
+void crearPdf(){
+    archivo = fopen("Latex/main.tex", "w");
+    if(archivo == NULL){
+        printf("No se pudo abrir Latex/main.tex");
+        exit(0);
+    }
+    char inicio[] = "\\documentclass[a4paper]{article}\n\\input{head}\n\\begin{document}\n\n%-------------------------------\n%	TITLE SECTION\n%-------------------------------\n\n\\fancyhead[C]{}\n\\hrule \\medskip % Upper rule\n\\begin{minipage}{0.295\\textwidth} % Left side of title section\n\\raggedright\nIO\\\\ % Your lecture or course\n\\footnotesize % Authors text size\n\\hfill\\\\\nJose Pablo Fernández Cubillo, 2019047740 \\\\% Your name, your matriculation number\nRoberto Vidal Patiño, 2019065537% Your name, your matriculation number\n\\end{minipage}\n\\begin{minipage}{0.4\\textwidth} % Center of title section\n\\centering \n\\large % Title text size\nProyecto 1\\\\ % Assignment title and number\n\\normalsize % Subtitle text size\nMochila Dinámica vs. MochilaGreedy\\\\ % Assignment subtitle\n\\end{minipage}\n\\begin{minipage}{0.295\\textwidth} % Right side of title section\n\\raggedleft\n\\today\\\\ % Date\n\\footnotesize % Email text size\n\\hfill\\\\\npablof5181@estudiantec.cr\\\\\nrobertovidal@estudiantec.cr% Your email\n\\end{minipage}\n\\medskip\\hrule % Lower rule\n\\bigskip\n\n%-------------------------------\n%	CONTENTS\n%-------------------------------\n";
+    fputs(inicio, archivo);
+}
+
+void quita0sDerecha(char numero[17], int ponePorcentaje){
+    int i = 14;
+    for(; i >= 1; i--){
+        if(numero[i] == '\0'){
+            continue;
+        }
+        if(numero[i] == '0' || numero[i] == '.'){
+            numero[i] = '\0';
+        } else {
+            break;
+        }
+    }
+    if(ponePorcentaje){
+        numero[i+1] = '\\';
+        numero[i+2] = '%';
+    }
+    printf("%s\n",numero);
+}
+
+void crearTablaExperimento(double matriz[10][10], char tipoTabla[], char nombre[], int ponePorcentaje){
+    char numeroInt[4];
+    char numeroDouble[17] = {'\0'};
+    fputs("\\section{", archivo);
+    fputs(tipoTabla, archivo);
+    fputs("usando ", archivo);
+    fputs(nombre, archivo);
+    fputs("}\n\n\\begin{table}[H]\n\\centering\n\\relax\n\\resizebox{\\textwidth}{!} {%\n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}\n\\cline{2-11}\n \\multicolumn{1}{c}{} & \\multicolumn{10}{|c|}{\\textbf{Cantidad de objetos}} \\\\\n", archivo);
+    for(int i = 0; i <= 10; i++){
+        fputs("\\hline\n", archivo);
+        for(int j = 0; j <= 10; j++){
+            if(i == 0){
+                if(j == 0){
+                    fputs("Mochila", archivo);
+                } else {
+                    sprintf(numeroInt, "%d", j*10);
+                    fputs(numeroInt, archivo);
+                }
+            } else if(j == 0){
+                sprintf(numeroInt, "%d", i*100);
+                fputs(numeroInt, archivo);
+            } else {
+                sprintf(numeroDouble, "%f", matriz[i-1][j-1]);
+                quita0sDerecha(numeroDouble, ponePorcentaje);
+                fputs(numeroDouble, archivo);
+            }
+            if(j == 10){
+                fputs(" \\\\\n", archivo);
+            } else {
+                fputs(" & ", archivo);
+            }
+        }
+        fputs("\\hline\n", archivo);
+    }
+    fputs("\\end{tabular}%\n}\n\\caption{Tabla con promedios de tiempo usando ", archivo);
+    fputs(nombre, archivo);
+    fputs(".}\n\\end{table}\n", archivo);
+}
+
+void crearTitulosEjemplo(char titulo[], int resultado, double tiempo, int solucion[6]){
+    char numeroInt[4]= {'\0', '\0', '\0', '\0'};
+    char numeroDouble[17] = {'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'};
+    fputs("\\section{", archivo);
+    fputs(titulo, archivo);
+    fputs("}\n", archivo);
+    sprintf(numeroInt, "%d", resultado);
+    fputs("\\textbf{Resultado:} ", archivo);
+    fputs(numeroInt, archivo);
+    sprintf(numeroDouble, "%f", tiempo);
+    quita0sDerecha(numeroDouble, 0);
+    fputs("\n\n\\textbf{Tiempo:} ", archivo);
+    fputs(numeroDouble, archivo);
+    fputs("\n\n\\textbf{Solución:} ", archivo);
+    char sol[13] = {'\0'};
+    int contar = 0;
+    for(int i = 0; i < 6; i++){
+        if(solucion[i] != -1){
+            sol[contar] = 'A'+solucion[i];
+            contar++;
+            sol[contar] = '-';
+            contar++;
+        }
+    }
+    if(contar > 0){
+        sol[contar-1] = '\0';
+    }
+    fputs(sol, archivo);
+}
+
+void crearTablaEjemplo(int **solucionDinamica, char **colores){
+    char numeroInt[4]= {'\0', '\0', '\0', '\0'};
+    fputs("\n\n\\begin{table}[H]\n\\centering\n\\relax\n\\begin{tabular}{|c|c|c|c|c|c|c|}\n", archivo);
+    for(int i = 0; i <= 16; i++){
+        fputs("\\hline\n", archivo);
+        for(int j = 0; j <= 6; j++){
+            if(i == 0){
+                if(j != 0){
+                    fputc(j+'A'-1, archivo);
+                }
+            } else if(j == 0){
+                sprintf(numeroInt, "%d", i-1);
+                fputs(numeroInt, archivo);
+            } else {
+                sprintf(numeroInt, "%d", solucionDinamica[i-1][j-1]);
+                fputs(numeroInt, archivo);
+                if(colores[i-1][j-1] == 'g'){
+                    fputs(" \\cellcolor{green!50}", archivo);
+                } else if(colores[i-1][j-1] == 'r'){
+                    fputs(" \\cellcolor{red!50}", archivo);
+                }
+            }
+            if(j == 6){
+                fputs(" \\\\\n", archivo);
+            } else {
+                fputs(" & ", archivo);
+            }
+        }
+        if(i == 16){
+            fputs("\\hline\n", archivo);
+        }
+    }
+    fputs("\\end{tabular}\n\\caption{Tabla usando programación dinámica.}\n\\end{table}\n", archivo);
+}
+
+void resultadoDinamicaEjemplo(int **solucionDinamica, char **colores, int *valores, int resultado[6]){
+    int n = 15;
+    int m = 5;
+    int i = 0;
+    while(n >= 0 && m >= 0){
+        if(colores[n][m] == 'g'){
+            resultado[i] = m;
+            n = n - valores[m];
+            i++;
+        }
+        m = m - 1;
+    }
+}
+
+void crearSuma(int lista[6]){
+    char numeroInt[4]= {'\0', '\0', '\0', '\0'};
+    for(int i = 0; i < 6; i++){
+        sprintf(numeroInt, "%d", lista[i]);
+        fputs(numeroInt, archivo);
+        fputs("x_{\\text{", archivo);
+        fputc('A'+i, archivo);
+        fputs("}}", archivo);
+        if(i != 5){
+            fputc('+', archivo);
+        }
+    }
+}
+
+void formaMatematica(int capacidades[6], int valores[6]){
+    fputs("\\section{Forma matemática}\n \\textbf{Maximizar:}\n\n", archivo);
+    fputs("$$Z=", archivo);
+    crearSuma(valores);
+    fputs("$$", archivo);
+    fputs("\\textbf{Sujeto a:}\n\n$$", archivo);
+    crearSuma(capacidades);
+    fputs("\\leq 15$$\n\n$$x_i = 0 \\text{ o } 1$$", archivo);
+}
 
 int progDinamica(int capacidad, int cantidad, int *capacidades, int *valores, int **solucion, char **colores){
     for(int i =0; i<=capacidad; i++){
@@ -98,12 +278,13 @@ void modoEjemplo(){
     int capacidad = 15;
     int capacidades[6];
     int valores[6];
-    int resultado;
+    int resultadoPD;
+    int resultadoGB;
+    int resultadoGP;
     for(int i = 0; i < 6;i++){
         capacidades[i] = (rand() % 7) + 1;
         valores[i] = (rand() % 20) + 1;
     }
-    printf("Programacion Dinamica: \n");
 
     // Inicializacin de la matriz que contiene la solucion de la programacion dinamica
     int **solucionDinamica;
@@ -118,10 +299,38 @@ void modoEjemplo(){
     for (int i = 0; i<16; i++) {
         colores[i] = (char *) malloc(6 * sizeof(char));
     }
+
     clock_t begin = clock();
-    resultado = progDinamica(capacidad, 6, capacidades, valores, solucionDinamica, colores);
+    resultadoPD = progDinamica(capacidad, 6, capacidades, valores, solucionDinamica, colores);
     clock_t end = clock();
-    printf("Resultado: %d\n", resultado);
+    double tiempo_prog_dinamica = (double)(end - begin) / CLOCKS_PER_SEC;
+
+    // En solucion se guarda la solucion, la cual iria de la primera posicion hasta que se encuentre un -1
+    begin = clock();
+    int solucionGreedyBasico[6] = {-1,-1,-1,-1,-1,-1};
+    resultadoGB = greedyBasico(capacidad, 6, capacidades, valores, solucionGreedyBasico);
+    end = clock();
+    double tiempo_greedy_basico = (double)(end - begin) / CLOCKS_PER_SEC;
+
+    int solucionGreedyProporcional[6] = {-1,-1,-1,-1,-1,-1};
+    begin = clock();
+    resultadoGP = greedyProporcional(capacidad, 6, capacidades, valores, solucionGreedyProporcional);
+    end = clock();
+    double tiempo_greedy_prop= (double)(end - begin) / CLOCKS_PER_SEC;
+
+    int sol[6] = {-1,-1,-1,-1,-1,-1};
+    resultadoDinamicaEjemplo(solucionDinamica, colores, capacidades, sol);
+    crearPdf();
+    formaMatematica(capacidades, valores);
+    crearTitulosEjemplo("Programación dinámica", resultadoPD, tiempo_prog_dinamica, sol);
+    crearTablaEjemplo(solucionDinamica, colores);
+    crearTitulosEjemplo("Greedy básico", resultadoGB, tiempo_greedy_basico, solucionGreedyBasico);
+    crearTitulosEjemplo("Greedy proporcional", resultadoGP, tiempo_greedy_prop, solucionGreedyProporcional);
+    terminaPdf();
+
+
+    printf("Programacion Dinamica: \n");
+    printf("Resultado: %d\n", resultadoPD);
     printf("Solucion:\n");
     for(int i =0; i<=capacidad; i++){
         for(int j = 0; j<6;j++){
@@ -129,16 +338,10 @@ void modoEjemplo(){
         }
         printf("\n");
     }
-    double tiempo_prog_dinamica = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Tiempo: %f\n", tiempo_prog_dinamica);
-    printf("Greedy Basico: \n");
-    begin = clock();
 
-    // En solucion se guarda la solucion, la cual iria de la primera posicion hasta que se encuentre un -1
-    int solucionGreedyBasico[6] = {-1,-1,-1,-1,-1,-1};
-    resultado = greedyBasico(capacidad, 6, capacidades, valores, solucionGreedyBasico);
-    end = clock();
-    printf("Resultado: %d\n", resultado);
+    printf("Greedy Basico: \n");    
+    printf("Resultado: %d\n", resultadoGB);
     printf("Solucion: ");
     int i =0;
     while(solucionGreedyBasico[i] != -1){
@@ -146,14 +349,10 @@ void modoEjemplo(){
         i++;
     }
     printf("\n");
-    double tiempo_greedy_basico = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Tiempo: %f\n", tiempo_greedy_basico);
-    printf("Greedy Proporcional: \n");
-    int solucionGreedyProporcional[6] = {-1,-1,-1,-1,-1,-1};
-    begin = clock();
-    resultado = greedyProporcional(capacidad, 6, capacidades, valores, solucionGreedyProporcional);
-    end = clock();
-    printf("Resultado: %d\n", resultado);
+
+    printf("Greedy Proporcional: \n");    
+    printf("Resultado: %d\n", resultadoGP);
     i =0;
     printf("Solucion: ");
     while(solucionGreedyProporcional[i] != -1){
@@ -161,8 +360,14 @@ void modoEjemplo(){
         i++;
     }
     printf("\n");
-    double tiempo_greedy_prop= (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Tiempo: %f\n", tiempo_greedy_prop);
+
+    for (int i = 0; i<16; i++) {
+        free(solucionDinamica[i]);
+        free(colores[i]);
+    }
+    free(solucionDinamica);
+    free(colores);
 }
 
 void modoExperimento(int n){
@@ -227,6 +432,13 @@ void modoExperimento(int n){
             porcentajeProporcional[(i/100)-1][(j/10)-1] = (double)correctasProporcional*100/n;
         }
     }
+    crearPdf();
+    crearTablaExperimento(promedioTiemposDinamica, "Promedios de tiempo en milisegundos", "programación dinámica", 0);
+    crearTablaExperimento(promedioTiemposBasico, "Promedios de tiempo en milisegundos", "greedy básico", 0);
+    crearTablaExperimento(promedioTiemposProporcional, "Promedios de tiempo en milisegundos", "greedy proporcional", 0);
+    crearTablaExperimento(porcentajeBasico, "Porcentaje de aciertos", "greedy básico", 1);
+    crearTablaExperimento(porcentajeProporcional, "Porcentaje de aciertos", "greedy proporcional", 1);
+    terminaPdf();
     printf("El promedio de tiempo que dura la programacion dinamica en milisegundos:\n");
     for(int i=0; i<10;i++){
         for(int j=0;j<10;j++){
@@ -262,12 +474,23 @@ void modoExperimento(int n){
         }
         printf("\n");
     }
+    for (int i = 0; i<1001; i++) {
+        free(solucionDinamica[i]);
+    }
+    free(solucionDinamica);
+}
+
+void mostrarAyuda(){
+    printf("Parece que necesitas ayuda.\n\n");
+    printf("Comando\tExplicación");
+    printf("\n\n-X\tEl programa resolverá un solo caso aleatorio del problema 0/1 de la mochila con un\n\talgoritmo de programación dinámica, un greedy básico y un greedy proporcional. La\n\tmochila tiene una capacidad de 15. Habrá 6 objetos con sus capacidades c_i <= 7 y\n\tsus valores 0 < v_i <= 20 ambos generados aleatoriamente. Se despliega un pdf\n\thecho en Latex con los resultados.");
+    printf("\n\n-E=n\tEl programa resolverá 100n casos diferentes del problema 0/1 de la mochila con un\n\talgoritmo de programación dinámica, un greedy básico y un greedy proporcional. La\n\tcapacidad de la mochila se varı́a desde 100 hasta 1000, y la cantidad de objetos se\n\tvarı́a desde 10 hasta 100 objetos Para cada uno de los n casos en la combinación de\n\tcierta capacidad de mochila y cantidad de objetos, se generarán aleatoriamente las\n\tcapacidades y valores de cada objeto, con las restricciones de que todas las\n\tcapacidades sean mayores que 0, pero que ninguno sea mayor al 40 %% de la capacidad\n\tde la mochila, y que 0 < v_i <= 100, donde v_i es cada valor del objeto. Se\n\tmuestran los resultados de ejecución de los tres algoritmos con tablas de\n\tpromedios de tiempo de ejecución y para los greedy se les coloca también tablas\n\tcon los porcentajes de éxito.\n");
 }
 
 int main(int argc, char *argv[]){
     srand(time(0));
     if(argc != 2){
-        printf("There is required one argument.\n");
+        mostrarAyuda();
         return -1;
     }
     if(strcmp(argv[1],"-X") == 0){
@@ -280,7 +503,7 @@ int main(int argc, char *argv[]){
             modoExperimento(n);
         }
         else{
-            printf("Invalid argument.\n");
+            mostrarAyuda();
         }
     }
     return 0;
