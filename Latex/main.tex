@@ -37,70 +37,234 @@ robertovidal@estudiantec.cr% Your email
 %-------------------------------
 %	CONTENTS
 %-------------------------------
-\section{Forma matemática}
- \textbf{Maximizar:}
-
-$$Z=20x_{\text{A}}+7x_{\text{B}}+15x_{\text{C}}+20x_{\text{D}}+5x_{\text{E}}+3x_{\text{F}}$$\textbf{Sujeto a:}
-
-$$4x_{\text{A}}+3x_{\text{B}}+2x_{\text{C}}+2x_{\text{D}}+2x_{\text{E}}+6x_{\text{F}}\leq 15$$
-
-$$x_i = 0 \text{ o } 1$$\section{Programación dinámica}
-\textbf{Resultado:} 67
-
-\textbf{Tiempo:} 0.000015
-
-\textbf{Solución:} E-D-C-B-A
+\section{Promedios de tiempo en milisegundosusando programación dinámica}
 
 \begin{table}[H]
 \centering
 \relax
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\resizebox{\textwidth}{!} {%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{2-11}
+ \multicolumn{1}{c}{} & \multicolumn{10}{|c|}{\textbf{Cantidad de objetos}} \\
 \hline
- & A & B & C & D & E & F \\
+Mochila & 10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90 & 100 \\
 \hline
-0 & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} \\
 \hline
-1 & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} \\
+100 & 0.000063 & 0.00013 & 0.000065 & 0.000055 & 0.000053 & 0.000059 & 0.00007 & 0.000078 & 0.000088 & 0.000102 \\
 \hline
-2 & 0 \cellcolor{red!50} & 0 \cellcolor{red!50} & 15 \cellcolor{green!50} & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 20 \cellcolor{red!50} \\
 \hline
-3 & 0 \cellcolor{red!50} & 7 \cellcolor{green!50} & 15 \cellcolor{green!50} & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 20 \cellcolor{red!50} \\
+200 & 0.000017 & 0.000036 & 0.000055 & 0.000074 & 0.00009 & 0.000108 & 0.000126 & 0.000145 & 0.000163 & 0.00018 \\
 \hline
-4 & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 20 \cellcolor{red!50} & 35 \cellcolor{green!50} & 35 \cellcolor{red!50} & 35 \cellcolor{red!50} \\
 \hline
-5 & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 22 \cellcolor{green!50} & 35 \cellcolor{green!50} & 35 \cellcolor{red!50} & 35 \cellcolor{red!50} \\
+300 & 0.000023 & 0.000049 & 0.000076 & 0.000103 & 0.000129 & 0.000156 & 0.000182 & 0.000211 & 0.000239 & 0.000264 \\
 \hline
-6 & 20 \cellcolor{green!50} & 20 \cellcolor{red!50} & 35 \cellcolor{green!50} & 40 \cellcolor{green!50} & 40 \cellcolor{red!50} & 40 \cellcolor{red!50} \\
 \hline
-7 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 35 \cellcolor{green!50} & 42 \cellcolor{green!50} & 42 \cellcolor{red!50} & 42 \cellcolor{red!50} \\
+400 & 0.00003 & 0.000063 & 0.000098 & 0.000133 & 0.000166 & 0.000203 & 0.000237 & 0.000275 & 0.000308 & 0.000343 \\
 \hline
-8 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 35 \cellcolor{green!50} & 55 \cellcolor{green!50} & 55 \cellcolor{red!50} & 55 \cellcolor{red!50} \\
 \hline
-9 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 55 \cellcolor{green!50} & 55 \cellcolor{red!50} & 55 \cellcolor{red!50} \\
+500 & 0.000036 & 0.000084 & 0.000123 & 0.000163 & 0.000208 & 0.00025 & 0.000293 & 0.000362 & 0.000382 & 0.000429 \\
 \hline
-10 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 55 \cellcolor{green!50} & 60 \cellcolor{green!50} & 60 \cellcolor{red!50} \\
 \hline
-11 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 62 \cellcolor{red!50} & 62 \cellcolor{red!50} \\
+600 & 0.000043 & 0.000093 & 0.000144 & 0.000195 & 0.000246 & 0.000298 & 0.000352 & 0.000403 & 0.000451 & 0.000504 \\
 \hline
-12 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 62 \cellcolor{red!50} & 62 \cellcolor{red!50} \\
 \hline
-13 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 67 \cellcolor{green!50} & 67 \cellcolor{red!50} \\
+700 & 0.000051 & 0.000106 & 0.000167 & 0.000227 & 0.000298 & 0.000347 & 0.000404 & 0.000463 & 0.000535 & 0.000586 \\
 \hline
-14 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 67 \cellcolor{green!50} & 67 \cellcolor{red!50} \\
 \hline
-15 & 20 \cellcolor{green!50} & 27 \cellcolor{green!50} & 42 \cellcolor{green!50} & 62 \cellcolor{green!50} & 67 \cellcolor{green!50} & 67 \cellcolor{red!50} \\
+800 & 0.000059 & 0.000123 & 0.000187 & 0.000255 & 0.000323 & 0.000392 & 0.000463 & 0.000531 & 0.000641 & 0.000693 \\
 \hline
-\end{tabular}
-\caption{Tabla usando programación dinámica.}
+\hline
+900 & 0.000065 & 0.000137 & 0.000214 & 0.00029 & 0.000368 & 0.000443 & 0.000518 & 0.000598 & 0.000681 & 0.000748 \\
+\hline
+\hline
+1000 & 0.000072 & 0.000152 & 0.000236 & 0.000322 & 0.000412 & 0.000506 & 0.000584 & 0.000662 & 0.000753 & 0.000887 \\
+\hline
+\end{tabular}%
+}
+\caption{Tabla con promedios de tiempo usando programación dinámica.}
 \end{table}
-\section{Greedy básico}
-\textbf{Resultado:} 67
+\section{Promedios de tiempo en milisegundosusando greedy básico}
 
-\textbf{Tiempo:} 0.000009
+\begin{table}[H]
+\centering
+\relax
+\resizebox{\textwidth}{!} {%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{2-11}
+ \multicolumn{1}{c}{} & \multicolumn{10}{|c|}{\textbf{Cantidad de objetos}} \\
+\hline
+Mochila & 10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90 & 100 \\
+\hline
+\hline
+100 & 0.00001 & 0.000012 & 0.000006 & 0.000005 & 0.000004 & 0.000004 & 0.000005 & 0.000005 & 0.000005 & 0.000006 \\
+\hline
+\hline
+200 & 0.000002 & 0.000002 & 0.000003 & 0.000003 & 0.000004 & 0.000005 & 0.000005 & 0.000006 & 0.000006 & 0.000007 \\
+\hline
+\hline
+300 & 0.000002 & 0.000002 & 0.000003 & 0.000003 & 0.000004 & 0.000005 & 0.000005 & 0.000006 & 0.000006 & 0.000007 \\
+\hline
+\hline
+400 & 0.000002 & 0.000002 & 0.000003 & 0.000003 & 0.000004 & 0.000005 & 0.000005 & 0.000006 & 0.000006 & 0.000007 \\
+\hline
+\hline
+500 & 0.000002 & 0.000002 & 0.000003 & 0.000003 & 0.000004 & 0.000005 & 0.000005 & 0.000006 & 0.000006 & 0.000007 \\
+\hline
+\hline
+600 & 0.000002 & 0.000002 & 0.000003 & 0.000004 & 0.000004 & 0.000005 & 0.000006 & 0.000006 & 0.000006 & 0.000008 \\
+\hline
+\hline
+700 & 0.000001 & 0.000002 & 0.000003 & 0.000004 & 0.000004 & 0.000004 & 0.000005 & 0.000006 & 0.000007 & 0.000007 \\
+\hline
+\hline
+800 & 0.000001 & 0.000002 & 0.000003 & 0.000004 & 0.000004 & 0.000005 & 0.000005 & 0.000006 & 0.000006 & 0.000008 \\
+\hline
+\hline
+900 & 0.000002 & 0.000002 & 0.000003 & 0.000004 & 0.000004 & 0.000004 & 0.000006 & 0.000005 & 0.000006 & 0.000007 \\
+\hline
+\hline
+1000 & 0.000002 & 0.000002 & 0.000003 & 0.000004 & 0.000005 & 0.000005 & 0.000005 & 0.000005 & 0.000007 & 0.000007 \\
+\hline
+\end{tabular}%
+}
+\caption{Tabla con promedios de tiempo usando greedy básico.}
+\end{table}
+\section{Promedios de tiempo en milisegundosusando greedy proporcional}
 
-\textbf{Solución:} A-D-C-B-E\section{Greedy proporcional}
-\textbf{Resultado:} 67
+\begin{table}[H]
+\centering
+\relax
+\resizebox{\textwidth}{!} {%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{2-11}
+ \multicolumn{1}{c}{} & \multicolumn{10}{|c|}{\textbf{Cantidad de objetos}} \\
+\hline
+Mochila & 10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90 & 100 \\
+\hline
+\hline
+100 & 0.000012 & 0.000019 & 0.00001 & 0.000009 & 0.000008 & 0.00001 & 0.000011 & 0.000014 & 0.000016 & 0.000019 \\
+\hline
+\hline
+200 & 0.000002 & 0.000003 & 0.000005 & 0.000007 & 0.000009 & 0.00001 & 0.000012 & 0.000014 & 0.000016 & 0.000018 \\
+\hline
+\hline
+300 & 0.000002 & 0.000003 & 0.000005 & 0.000007 & 0.000009 & 0.00001 & 0.000012 & 0.000014 & 0.000017 & 0.000018 \\
+\hline
+\hline
+400 & 0.000002 & 0.000003 & 0.000005 & 0.000006 & 0.000008 & 0.00001 & 0.000012 & 0.000014 & 0.000016 & 0.000018 \\
+\hline
+\hline
+500 & 0.000002 & 0.000004 & 0.000005 & 0.000006 & 0.000008 & 0.000011 & 0.000012 & 0.000015 & 0.000017 & 0.000018 \\
+\hline
+\hline
+600 & 0.000002 & 0.000003 & 0.000005 & 0.000007 & 0.000009 & 0.00001 & 0.000012 & 0.000014 & 0.000017 & 0.000019 \\
+\hline
+\hline
+700 & 0.000002 & 0.000003 & 0.000005 & 0.000007 & 0.000008 & 0.00001 & 0.000012 & 0.000014 & 0.000017 & 0.00002 \\
+\hline
+\hline
+800 & 0.000002 & 0.000003 & 0.000005 & 0.000007 & 0.000008 & 0.00001 & 0.000012 & 0.000014 & 0.000018 & 0.00002 \\
+\hline
+\hline
+900 & 0.000002 & 0.000003 & 0.000005 & 0.000007 & 0.000009 & 0.00001 & 0.000012 & 0.000014 & 0.000017 & 0.000018 \\
+\hline
+\hline
+1000 & 0.000002 & 0.000003 & 0.000005 & 0.000006 & 0.000009 & 0.00001 & 0.000013 & 0.000014 & 0.000016 & 0.000019 \\
+\hline
+\end{tabular}%
+}
+\caption{Tabla con promedios de tiempo usando greedy proporcional.}
+\end{table}
+\section{Porcentaje de aciertosusando greedy básico}
 
-\textbf{Tiempo:} 0.00001
+\begin{table}[H]
+\centering
+\relax
+\resizebox{\textwidth}{!} {%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{2-11}
+ \multicolumn{1}{c}{} & \multicolumn{10}{|c|}{\textbf{Cantidad de objetos}} \\
+\hline
+Mochila & 10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90 & 100 \\
+\hline
+\hline
+100 & 68\% & 10\% & 1\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+200 & 68\% & 12\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+300 & 67\% & 17\% & 2\% & 1\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+400 & 62\% & 15\% & 2\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+500 & 68\% & 14\% & 1\% & 0\% & 1\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+600 & 61\% & 12\% & 2\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+700 & 55\% & 11\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+800 & 73\% & 6\% & 1\% & 1\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+900 & 60\% & 12\% & 2\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\hline
+1000 & 60\% & 7\% & 1\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% & 0\% \\
+\hline
+\end{tabular}%
+}
+\caption{Tabla con promedios de tiempo usando greedy básico.}
+\end{table}
+\section{Porcentaje de aciertosusando greedy proporcional}
 
-\textbf{Solución:} D-C-A-E-B\end{document}
+\begin{table}[H]
+\centering
+\relax
+\resizebox{\textwidth}{!} {%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\cline{2-11}
+ \multicolumn{1}{c}{} & \multicolumn{10}{|c|}{\textbf{Cantidad de objetos}} \\
+\hline
+Mochila & 10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90 & 100 \\
+\hline
+\hline
+100 & 74\% & 53\% & 42\% & 35\% & 43\% & 44\% & 42\% & 35\% & 40\% & 40\% \\
+\hline
+\hline
+200 & 61\% & 49\% & 52\% & 48\% & 50\% & 40\% & 34\% & 38\% & 39\% & 29\% \\
+\hline
+\hline
+300 & 60\% & 52\% & 49\% & 38\% & 48\% & 34\% & 40\% & 36\% & 37\% & 35\% \\
+\hline
+\hline
+400 & 69\% & 52\% & 61\% & 41\% & 46\% & 39\% & 45\% & 38\% & 36\% & 34\% \\
+\hline
+\hline
+500 & 56\% & 57\% & 42\% & 45\% & 43\% & 47\% & 37\% & 40\% & 36\% & 37\% \\
+\hline
+\hline
+600 & 75\% & 44\% & 51\% & 51\% & 42\% & 31\% & 47\% & 32\% & 40\% & 34\% \\
+\hline
+\hline
+700 & 63\% & 46\% & 38\% & 51\% & 45\% & 44\% & 43\% & 43\% & 37\% & 33\% \\
+\hline
+\hline
+800 & 70\% & 54\% & 45\% & 50\% & 46\% & 43\% & 41\% & 35\% & 37\% & 27\% \\
+\hline
+\hline
+900 & 58\% & 46\% & 48\% & 40\% & 41\% & 36\% & 39\% & 30\% & 24\% & 31\% \\
+\hline
+\hline
+1000 & 62\% & 50\% & 48\% & 44\% & 40\% & 37\% & 44\% & 47\% & 39\% & 43\% \\
+\hline
+\end{tabular}%
+}
+\caption{Tabla con promedios de tiempo usando greedy proporcional.}
+\end{table}
+\end{document}

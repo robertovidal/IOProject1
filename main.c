@@ -28,8 +28,12 @@ void quita0sDerecha(char numero[17], int ponePorcentaje){
         if(numero[i] == '\0'){
             continue;
         }
-        if(numero[i] == '0' || numero[i] == '.'){
+        if(numero[i] == '0'){
             numero[i] = '\0';
+        } else if(numero[i] == '.'){
+            numero[i] = '\0';
+            i--;
+            break;
         } else {
             break;
         }
