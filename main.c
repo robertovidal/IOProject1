@@ -506,7 +506,7 @@ int main(int argc, char *argv[]){
         int n;
         if(argv[1][0] == '-' && argv[1][1] == 'E' && argv[1][2] == '=' && isdigit(argv[1][3])){
             sscanf(argv[1], "-E=%d", &n);
-            if(n <= 0){
+            if(n > 0){
                 modoExperimento(n);
             } else {
                 mostrarAyuda();
