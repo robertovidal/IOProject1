@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.5.11)  4 SEP 2021 17:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.5.11)  11 SEP 2021 12:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1764,9 +1764,9 @@ LaTeX Font Info:    Try loading font information for U+wasy on input line 18.
 (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 )
-Overfull \hbox (2.9395pt too wide) in paragraph at lines 40--40
-[]\OT1/bch/b/n/14.4 Promedios de tiem-po en mi-li-se-gun-do-su-san-do pro-gra-m
-a-ci[]on din[]ami-
+Overfull \hbox (6.12192pt too wide) in paragraph at lines 40--40
+[]\OT1/bch/b/n/14.4 Promedios de tiem-po en mi-li-se-gun-dos usan-do pro-gra-ma
+-ci[]on din[]ami-
  []
 
 Package babel Info: Redefining spanish shorthand <<
@@ -1916,7 +1916,7 @@ LaTeX Info: Redefining \% on input line 27.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E4D14FA2E7FA09D30377ACD83911695A;456.
+(rerunfilecheck)             Checksum: 258A6D74208242DC0F46F53A3782AA75;461.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
@@ -1925,7 +1925,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
 Here is how much of TeX's memory you used:
  32576 strings out of 492982
  608582 string characters out of 6134896
- 1197428 words of memory out of 5000000
+ 1192428 words of memory out of 5000000
  35483 multiletter control sequences out of 15000+600000
  17117 words of font info for 48 fonts, out of 8000000 for 9000
  1145 hyphenation exceptions out of 8191
@@ -1933,7 +1933,7 @@ Here is how much of TeX's memory you used:
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/bitstrea/charter/bchr8a.pfb>
-Output written on main.pdf (3 pages, 36733 bytes).
+Output written on main.pdf (3 pages, 36060 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  54 compressed objects within 1 object stream

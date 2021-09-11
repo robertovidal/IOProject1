@@ -50,7 +50,7 @@ void crearTablaExperimento(double matriz[10][10], char tipoTabla[], char nombre[
     char numeroDouble[17] = {'\0'};
     fputs("\\section{", archivo);
     fputs(tipoTabla, archivo);
-    fputs("usando ", archivo);
+    fputs(" usando ", archivo);
     fputs(nombre, archivo);
     fputs("}\n\n\\begin{table}[H]\n\\centering\n\\relax\n\\resizebox{\\textwidth}{!} {%\n\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}\n\\cline{2-11}\n \\multicolumn{1}{c}{} & \\multicolumn{10}{|c|}{\\textbf{Cantidad de objetos}} \\\\\n", archivo);
     for(int i = 0; i <= 10; i++){
@@ -79,7 +79,9 @@ void crearTablaExperimento(double matriz[10][10], char tipoTabla[], char nombre[
         }
         fputs("\\hline\n", archivo);
     }
-    fputs("\\end{tabular}%\n}\n\\caption{Tabla con promedios de tiempo usando ", archivo);
+    fputs("\\end{tabular}%\n}\n\\caption{", archivo);
+    fputs(tipoTabla, archivo);
+    fputs(" usando ", archivo);
     fputs(nombre, archivo);
     fputs(".}\n\\end{table}\n", archivo);
 }
@@ -487,8 +489,8 @@ void modoExperimento(int n){
 void mostrarAyuda(){
     printf("Parece que necesitas ayuda.\n\n");
     printf("Comando\tExplicación");
-    printf("\n\n-X\tEl programa resolverá un solo caso aleatorio del problema 0/1 de la mochila con un\n\talgoritmo de programación dinámica, un greedy básico y un greedy proporcional. La\n\tmochila tiene una capacidad de 15. Habrá 6 objetos con sus capacidades c_i <= 7 y\n\tsus valores 0 < v_i <= 20 ambos generados aleatoriamente. Se despliega un pdf\n\thecho en Latex con los resultados.");
-    printf("\n\n-E=n\tEl programa resolverá 100n casos diferentes del problema 0/1 de la mochila con un\n\talgoritmo de programación dinámica, un greedy básico y un greedy proporcional. La\n\tcapacidad de la mochila se varı́a desde 100 hasta 1000, y la cantidad de objetos se\n\tvarı́a desde 10 hasta 100 objetos Para cada uno de los n casos en la combinación de\n\tcierta capacidad de mochila y cantidad de objetos, se generarán aleatoriamente las\n\tcapacidades y valores de cada objeto, con las restricciones de que todas las\n\tcapacidades sean mayores que 0, pero que ninguno sea mayor al 40 %% de la capacidad\n\tde la mochila, y que 0 < v_i <= 100, donde v_i es cada valor del objeto. Se\n\tmuestran los resultados de ejecución de los tres algoritmos con tablas de\n\tpromedios de tiempo de ejecución y para los greedy se les coloca también tablas\n\tcon los porcentajes de éxito.\n");
+    printf("\n\n-X\tEl programa resolverá un solo caso aleatorio del problema 0/1 de la\n\tmochila con un algoritmo de programación dinámica, un greedy básico y un\n\tgreedy proporcional. La mochila tiene una capacidad de 15. Habrá 6\n\tobjetos con sus capacidades c_i <= 7 y sus valores 0 < v_i <= 20 ambos\n\tgenerados aleatoriamente. Se despliega un pdf hecho en Latex con los\n\tresultados.");
+    printf("\n\n-E=n\tEn este caso n debe ser un número entero positivo distinto de 0. El\n\tprograma resolverá 100n casos diferentes del problema 0/1 de la mochila\n\tcon un algoritmo de programación dinámica, un greedy básico y un greedy\n\tproporcional. La capacidad de la mochila se varı́a desde 100 hasta 1000,\n\ty la cantidad de objetos se varı́a desde 10 hasta 100 objetos Para cada\n\tuno de los n casos en la combinación de cierta capacidad de mochila y\n\tcantidad de objetos, se generarán aleatoriamente las capacidades y\n\tvalores de cada objeto, con las restricciones de que todas las\n\tcapacidades sean mayores que 0, pero que ninguno sea mayor al 40 %% de la\n\tcapacidad de la mochila, y que 0 < v_i <= 100, donde v_i es cada valor\n\tdel objeto. Se muestran los resultados de ejecución de los tres\n\talgoritmos con tablas de promedios de tiempo de ejecución y para los\n\tgreedy se les coloca también tablas con los porcentajes de éxito.\n");
 }
 
 int main(int argc, char *argv[]){
@@ -504,7 +506,11 @@ int main(int argc, char *argv[]){
         int n;
         if(argv[1][0] == '-' && argv[1][1] == 'E' && argv[1][2] == '=' && isdigit(argv[1][3])){
             sscanf(argv[1], "-E=%d", &n);
-            modoExperimento(n);
+            if(n <= 0){
+                modoExperimento(n);
+            } else {
+                mostrarAyuda();
+            }
         }
         else{
             mostrarAyuda();
