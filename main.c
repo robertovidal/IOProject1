@@ -179,7 +179,7 @@ void crearSuma(int lista[6]){
     }
 }
 
-void formaMatematica(int capacidades[6], int valores[6]){
+void formaMatematica(int capacidades[6], int valores[6], int solucion[6]){
     fputs("\\section{Forma matemática}\n \\textbf{Maximizar:}\n\n", archivo);
     fputs("$$Z=", archivo);
     crearSuma(valores);
@@ -187,6 +187,29 @@ void formaMatematica(int capacidades[6], int valores[6]){
     fputs("\\textbf{Sujeto a:}\n\n$$", archivo);
     crearSuma(capacidades);
     fputs("\\leq 15$$\n\n$$x_i = 0 \\text{ o } 1$$", archivo);
+    fputs("\\textbf{Solución:}\n\n$$", archivo);
+    int pone1;
+    for(int i = 0; i < 6; i++){
+        pone1 = 0;
+        fputs("x_", archivo);
+        fputc('A'+i, archivo);
+        fputc('=', archivo);
+        for(int j = 0; j < 6; j++){
+            if(solucion[j] == i){
+                pone1 = 1;
+                break;
+            }
+        }
+        if(pone1){
+            fputc('1', archivo);
+        } else{
+            fputc('0', archivo);
+        }
+        if(i < 5){
+            fputs(",\\;", archivo);
+        }
+    }
+    fputs("$$", archivo);
 }
 
 int progDinamica(int capacidad, int cantidad, int *capacidades, int *valores, int **solucion, char **colores){
@@ -327,7 +350,7 @@ void modoEjemplo(){
     int sol[6] = {-1,-1,-1,-1,-1,-1};
     resultadoDinamicaEjemplo(solucionDinamica, colores, capacidades, sol);
     crearPdf();
-    formaMatematica(capacidades, valores);
+    formaMatematica(capacidades, valores, sol);
     crearTitulosEjemplo("Programación dinámica", resultadoPD, tiempo_prog_dinamica, sol);
     crearTablaEjemplo(solucionDinamica, colores);
     crearTitulosEjemplo("Greedy básico", resultadoGB, tiempo_greedy_basico, solucionGreedyBasico);
